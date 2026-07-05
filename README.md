@@ -1,5 +1,7 @@
 # Predicción Temprana de Enfermedad Renal Crónica con PSO-XGBoost
 
+**Idioma / Language:** Español | [English](README.en.md)
+
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
 ![XGBoost](https://img.shields.io/badge/XGBoost-2.0.3-EB5424)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3.2-F7931E?logo=scikitlearn&logoColor=white)
