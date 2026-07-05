@@ -1,6 +1,8 @@
 # Datos crudos (descargar segun data/raw/README.md)
 data/raw/*
 !data/raw/README.md
+# El dataset UCI (~43 KB, CC BY 4.0) si se versiona por reproducibilidad
+!data/raw/ckd_uci.csv
 
 # Datos procesados (se regeneran con los scripts)
 data/processed/*
