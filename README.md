@@ -185,8 +185,6 @@ Según SHAP, las variables más influyentes deben incluir creatinina sérica, he
 ## Autores
 
 - Mickaell Morán — Universidad de Guayaquil
-- Salado — Universidad de Guayaquil
-- Troyano — Universidad de Guayaquil
 
 Trabajo final de la asignatura de Aprendizaje Automático, semestre 2026.
 
@@ -195,7 +193,7 @@ Trabajo final de la asignatura de Aprendizaje Automático, semestre 2026.
 ```bibtex
 @techreport{mickaell2026psoxgboost,
   title  = {Optimización de Hiperparámetros de XGBoost mediante Algoritmo de Enjambre de Partículas para la Predicción Temprana de Enfermedad Renal Crónica en Pacientes con Diabetes Mellitus Tipo 2},
-  author = {Mickaell and Salado and Troyano},
+  author = {Mickaell Morán},
   year   = {2026},
   institution = {Universidad de Guayaquil},
   type   = {Trabajo académico}
