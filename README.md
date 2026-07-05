@@ -202,10 +202,10 @@ valores pueden variar levemente entre corridas por la naturaleza estocástica de
 | SVM (RBF) | 0.988 | 1.000 | 0.980 | 1.000 | 0.990 | 1.000 |
 | Random Forest | 0.988 | 1.000 | 0.980 | 1.000 | 0.990 | 1.000 |
 | XGBoost (default) | 0.963 | 1.000 | 0.940 | 1.000 | 0.969 | 0.999 |
-| **PSO-XGBoost** | **0.970** | **1.000** | **0.952** | **1.000** | **0.975** | **0.999** |
+| **PSO-XGBoost** | **0.967** | **1.000** | **0.948** | **1.000** | **0.973** | **0.999** |
 
-Mejores hiperparámetros hallados por el PSO (AUC-ROC en CV = 0.9992): `learning_rate=0.153`,
-`n_estimators=271`, `max_depth=5`, `min_child_weight=1`, `subsample=0.859`, `colsample_bytree=0.800`.
+Mejores hiperparámetros hallados por el PSO (AUC-ROC en CV = 0.9994): `learning_rate=0.106`,
+`n_estimators=370`, `max_depth=6`, `min_child_weight=1`, `subsample=0.841`, `colsample_bytree=0.840`.
 
 El dataset UCI CKD es altamente separable, por lo que todos los modelos alcanzan un
 rendimiento cercano al techo; el PSO-XGBoost logra el mejor AUC en validación cruzada y
