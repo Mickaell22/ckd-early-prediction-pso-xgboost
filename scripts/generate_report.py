@@ -61,12 +61,23 @@ def _load_metrics() -> dict[str, dict[str, float]]:
     return table
 
 
+def _to_markdown(df: pd.DataFrame) -> str:
+    """Serializa un DataFrame a tabla Markdown sin depender de `tabulate`."""
+    headers = [df.index.name or ""] + list(df.columns)
+    lines = ["| " + " | ".join(headers) + " |",
+             "|" + "|".join(["---"] * len(headers)) + "|"]
+    for idx, row in df.iterrows():
+        cells = [str(idx)] + [f"{v:.3f}" for v in row]
+        lines.append("| " + " | ".join(cells) + " |")
+    return "\n".join(lines) + "\n"
+
+
 def _write_comparison_table(table: dict[str, dict[str, float]]) -> None:
     df = pd.DataFrame(table).T[TABLE_METRICS].rename(columns=METRIC_LABELS)
     df.index.name = "Modelo"
     df.round(3).to_csv(config.RESULTS_DIR / "comparison_table.csv")
     with open(config.RESULTS_DIR / "comparison_table.md", "w", encoding="utf-8") as f:
-        f.write(df.round(3).to_markdown())
+        f.write(_to_markdown(df))
     with open(config.METRICS_JSON, "w", encoding="utf-8") as f:
         json.dump(table, f, indent=2, ensure_ascii=False)
     logger.info("Tabla comparativa escrita (CSV, Markdown y metrics.json)")

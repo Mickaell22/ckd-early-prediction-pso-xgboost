@@ -95,6 +95,9 @@ class PSOXGBoostOptimizer:
         v_max = config.VELOCITY_FRACTION * (self.ub - self.lb)
         velocity_clamp = (-v_max, v_max)
 
+        # pyswarms inicializa las particulas con np.random y no expone un parametro
+        # de semilla, asi que la fijamos aqui para que la optimizacion sea reproducible.
+        np.random.seed(self.random_state)
         optimizer = ps.single.GlobalBestPSO(
             n_particles=self.n_particles,
             dimensions=self.dimensions,

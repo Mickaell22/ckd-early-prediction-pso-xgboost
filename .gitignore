@@ -42,3 +42,6 @@ env/
 
 # Claude Code
 .claude/
+
+# Logs
+*.log
