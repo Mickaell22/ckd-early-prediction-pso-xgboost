@@ -1,0 +1,14 @@
+# Se montan como volumenes en docker run
+data/
+results/
+
+.git/
+.claude/
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+Dockerfile
+.dockerignore

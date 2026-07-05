@@ -113,7 +113,7 @@ ckd-early-prediction-pso-xgboost/
 
 ### Requisitos
 
-- Python 3.11
+- Python 3.11 (o Docker, ver mas abajo)
 - Git
 - ~500 MB de espacio en disco
 
@@ -125,6 +125,29 @@ cd ckd-early-prediction-pso-xgboost
 python -m venv venv
 source venv/bin/activate  # En Windows: venv\Scripts\activate
 pip install -r requirements.txt
+```
+
+### Alternativa con Docker
+
+Si no tienes Python 3.11 instalado, la imagen Docker resuelve el entorno completo:
+
+```bash
+docker build -t ckd-pso-xgboost .
+
+# Correr cualquier script montando data/ y results/ como volumenes
+docker run --rm \
+  -v "$PWD/data:/app/data" \
+  -v "$PWD/results:/app/results" \
+  ckd-pso-xgboost python scripts/train_baselines.py
+
+# Tests
+docker run --rm ckd-pso-xgboost pytest tests/
+
+# Jupyter (disponible en http://localhost:8888)
+docker run --rm -p 8888:8888 \
+  -v "$PWD/data:/app/data" \
+  -v "$PWD/results:/app/results" \
+  ckd-pso-xgboost jupyter notebook --ip 0.0.0.0 --port 8888 --no-browser --allow-root notebooks/
 ```
 
 ### Dataset
