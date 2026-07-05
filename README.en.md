@@ -191,19 +191,41 @@ pytest tests/
 
 ---
 
-## Expected results
+## Results
 
-Exact values may vary slightly between runs, but the model should reach equivalent levels:
+Mean over 5 seeds (42–46), stratified 20% test split. Values may vary slightly
+between runs due to the stochastic nature of PSO.
 
-| Model | Accuracy | Precision | Sensitivity | F1 | AUC |
-|---|---|---|---|---|---|
-| Logistic Regression | 0.913 | 0.900 | 0.940 | 0.920 | 0.918 |
-| SVM (RBF) | 0.938 | 0.926 | 0.960 | 0.943 | 0.945 |
-| Random Forest | 0.963 | 0.962 | 0.980 | 0.971 | 0.972 |
-| XGBoost (default) | 0.975 | 0.980 | 0.980 | 0.980 | 0.964 |
-| **PSO-XGBoost** | **0.992** | **0.984** | **1.000** | **0.992** | **0.997** |
+| Model | Accuracy | Precision | Sensitivity | Specificity | F1 | AUC |
+|---|---|---|---|---|---|---|
+| Logistic Regression | 0.950 | 1.000 | 0.920 | 1.000 | 0.958 | 1.000 |
+| SVM (RBF) | 0.988 | 1.000 | 0.980 | 1.000 | 0.990 | 1.000 |
+| Random Forest | 0.988 | 1.000 | 0.980 | 1.000 | 0.990 | 1.000 |
+| XGBoost (default) | 0.963 | 1.000 | 0.940 | 1.000 | 0.969 | 0.999 |
+| **PSO-XGBoost** | **0.970** | **1.000** | **0.952** | **1.000** | **0.975** | **0.999** |
 
-According to SHAP, the most influential variables should include serum creatinine, hemoglobin, urine specific gravity and albuminuria.
+Best hyperparameters found by PSO (CV AUC-ROC = 0.9992): `learning_rate=0.153`,
+`n_estimators=271`, `max_depth=5`, `min_child_weight=1`, `subsample=0.859`, `colsample_bytree=0.800`.
+
+The UCI CKD dataset is highly separable, so all models reach near-ceiling performance;
+PSO-XGBoost achieves the best cross-validated AUC with perfect precision/specificity.
+According to SHAP, the most influential variables are hemoglobin (`hemo`), urine specific
+gravity (`sg`), serum creatinine (`sc`), red blood cell count (`rc`) and albuminuria (`al`),
+consistent with CKD pathophysiology.
+
+### Figures
+
+All figures are generated under `results/figures/`: PSO convergence, comparative ROC
+curves, confusion matrix, feature importance (XGBoost) and SHAP analysis (summary, global
+importance and a single-case waterfall).
+
+### Scope note
+
+The paper framed the primary analysis on the diabetic subgroup (`dm == 'yes'`). In the
+UCI dataset **all 137 diabetic patients have CKD** (a single class), so that subgroup
+cannot be used to train a classifier. Modeling is done on the full dataset (400 instances:
+250 CKD, 150 non-CKD) and the diabetic angle is documented as a prevalence observation in
+the EDA (`notebooks/01_eda.ipynb`).
 
 ---
 

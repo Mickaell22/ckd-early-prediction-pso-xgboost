@@ -191,19 +191,42 @@ pytest tests/
 
 ---
 
-## Resultados esperados
+## Resultados obtenidos
 
-Los valores exactos pueden variar levemente entre corridas, pero el modelo debe alcanzar niveles equivalentes:
+Media sobre 5 semillas (42–46), partición de prueba estratificada del 20%. Los
+valores pueden variar levemente entre corridas por la naturaleza estocástica del PSO.
 
-| Modelo | Accuracy | Precisión | Sensibilidad | F1 | AUC |
-|---|---|---|---|---|---|
-| Regresión Logística | 0.913 | 0.900 | 0.940 | 0.920 | 0.918 |
-| SVM (RBF) | 0.938 | 0.926 | 0.960 | 0.943 | 0.945 |
-| Random Forest | 0.963 | 0.962 | 0.980 | 0.971 | 0.972 |
-| XGBoost (default) | 0.975 | 0.980 | 0.980 | 0.980 | 0.964 |
-| **PSO-XGBoost** | **0.992** | **0.984** | **1.000** | **0.992** | **0.997** |
+| Modelo | Accuracy | Precisión | Sensibilidad | Especificidad | F1 | AUC |
+|---|---|---|---|---|---|---|
+| Regresión Logística | 0.950 | 1.000 | 0.920 | 1.000 | 0.958 | 1.000 |
+| SVM (RBF) | 0.988 | 1.000 | 0.980 | 1.000 | 0.990 | 1.000 |
+| Random Forest | 0.988 | 1.000 | 0.980 | 1.000 | 0.990 | 1.000 |
+| XGBoost (default) | 0.963 | 1.000 | 0.940 | 1.000 | 0.969 | 0.999 |
+| **PSO-XGBoost** | **0.970** | **1.000** | **0.952** | **1.000** | **0.975** | **0.999** |
 
-Según SHAP, las variables más influyentes deben incluir creatinina sérica, hemoglobina, gravedad específica de la orina y albuminuria.
+Mejores hiperparámetros hallados por el PSO (AUC-ROC en CV = 0.9992): `learning_rate=0.153`,
+`n_estimators=271`, `max_depth=5`, `min_child_weight=1`, `subsample=0.859`, `colsample_bytree=0.800`.
+
+El dataset UCI CKD es altamente separable, por lo que todos los modelos alcanzan un
+rendimiento cercano al techo; el PSO-XGBoost logra el mejor AUC en validación cruzada y
+precisión/especificidad perfectas. Según SHAP, las variables más influyentes son
+hemoglobina (`hemo`), gravedad específica de la orina (`sg`), creatinina sérica (`sc`),
+conteo de glóbulos rojos (`rc`) y albuminuria (`al`), consistente con la fisiopatología de la ERC.
+
+### Figuras
+
+Todas las figuras se generan en `results/figures/`: convergencia del PSO, curvas ROC
+comparativas, matriz de confusión, importancia de variables (XGBoost) y análisis SHAP
+(summary, importancia global y waterfall de un caso individual).
+
+### Nota sobre el alcance
+
+El paper planteaba el análisis primario sobre el subgrupo de pacientes diabéticos
+(`dm == 'yes'`). En el dataset UCI **los 137 pacientes diabéticos tienen todos ERC**
+(una sola clase), por lo que ese subgrupo no permite entrenar un clasificador. El
+modelado se realiza sobre el dataset completo (400 instancias: 250 con ERC, 150 sin ERC)
+y el ángulo diabético se documenta como observación de prevalencia en el EDA
+(`notebooks/01_eda.ipynb`).
 
 ---
 
