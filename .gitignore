@@ -8,13 +8,14 @@ data/raw/*
 data/processed/*
 !data/processed/.gitkeep
 
-# Resultados generados (modelos, figuras, metricas)
+# Resultados generados
+# Las figuras y las metricas SI se versionan para poder verlas en GitHub sin re-ejecutar.
 results/figures/*
 !results/figures/.gitkeep
+!results/figures/*.png
+# Los modelos serializados (binarios, regenerables) NO se versionan.
 results/models/*
 !results/models/.gitkeep
-results/*.json
-results/*.csv
 
 # Python
 __pycache__/
