@@ -1,0 +1,41 @@
+# Datos crudos (descargar segun data/raw/README.md)
+data/raw/*
+!data/raw/README.md
+
+# Datos procesados (se regeneran con los scripts)
+data/processed/*
+!data/processed/.gitkeep
+
+# Resultados generados (modelos, figuras, metricas)
+results/figures/*
+!results/figures/.gitkeep
+results/models/*
+!results/models/.gitkeep
+results/*.json
+results/*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Variables de entorno
+.env
+
+# IDE / SO
+.vscode/
+.idea/
+.DS_Store
+
+# Claude Code
+.claude/
